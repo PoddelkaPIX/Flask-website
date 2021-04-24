@@ -1,0 +1,30 @@
+#text_content{
+    text-align:left;
+    font-size: 20px;
+    margin: 100px;
+}
+#title_content{
+    text-align: center;
+}
+
+#image_content{
+    margin-left: 50px;
+}
+
+#comment{
+    width: 50%;
+    height: 100;
+}
+
+#scroll_comments{
+    width:500px; /* ширина нашего блока */
+    height:500px; /* высота нашего блока */
+    background: #fff; /* цвет фона, белый */
+    border: 1px solid #C1C1C1; /* размер и цвет границы блока */
+    overflow:auto; /* свойство для прокрутки по горизонтали. Автоматом, если больше блока */
+}
+
+#comments_block{
+    margin-bottom: 10px;
+    padding: 10px;
+}

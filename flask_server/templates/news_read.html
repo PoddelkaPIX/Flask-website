@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{news.title}}</title>
+</head>
+<body>
+    {% extends "base.html" %}
+
+    {% block content %}
+    <div class="col-md6 border rounded" id="content">
+        <h2 id="title_content">{{news.title}}</h2>
+        <img id="image_content" src="/static/img/{{news.images}}" height="450">
+        <div id="text_content">
+            {% for text in news.content.split("\r\n") %}
+                {{ text }} <br>
+            {% endfor %}
+            <br>
+             Автор - {{news.user.name}}, Дата написания - {{news.created_date}}
+        </div>
+        <div id="scroll_comments">
+            {% for item in user_comments %}
+                {% if item.news_id == news.id %}
+                    <div class="col-md6 border rounded" id="comments_block">
+                        {% for text in item.content.split("\r\n") %}
+                            {{ text }} <br>
+                        {% endfor %}
+                        Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% if current_user.is_authenticated %}
+            <form action="" method=post name="feedback" enctype="multipart/form-data">
+              <p><b>Введите ваш отзыв:</b></p>
+              <p><textarea id="comment" name="comment"></textarea></p>
+              <p><input type="submit"></p>
+            </form>
+        {% endif %}
+            {% if current_user.is_authenticated %}
+                <a href="/news_liked/{{ news.id }}" class="btn-warning">
+                    Нравится {{ news.likes }}
+                </a>
+            {% endif %}
+            {% if current_user.is_authenticated and current_user == news.user %}
+                <div>
+                    <a href="/news/{{ news.id }}" class="btn btn-warning">
+                        Изменить
+                    </a>
+                    <a href="/news_delete/{{ news.id }}" class="btn btn-danger">
+                        Удалить
+                    </a>
+                </div>
+            {% endif %}
+    </div>
+    {% endblock %}
+</body>
+</html>
